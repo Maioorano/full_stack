@@ -1,0 +1,22 @@
+a:hover{
+    color:firebrick;
+} 
+button:hover{
+    cursor: pointer;
+}
+
+p{
+    color:lightskyblue;
+    font-size: 18pt;
+} 
+
+.roxo{
+    color:purple;
+    font:17pt;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+#bg{
+    background-color:beige
+
+}
