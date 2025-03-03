@@ -1,0 +1,59 @@
+p{
+    color:purple;
+    font-size:20pt;
+    font-family:sans-serif;
+}
+
+.introducao{
+    text-align: center;
+    
+
+}
+
+#fundo{
+    background-color: lightgrey;
+}
+
+.livro{
+    text-align: center;
+    font-size:20pt;
+}
+
+.Cmais{
+    text-align: center;
+    font-size: 20pt;
+}
+
+.ctt{
+    text-align: center;
+    font-size: 20pt;
+}
+
+.red{
+    color: red;
+
+}
+
+#tabela{
+    text-align: center;
+    font-size: 15pt;
+    width: 300px;
+    border: 2px red dotted
+}
+
+.tabela2{
+    text-align: center;
+    width:400px;
+    height:160px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 6px red dotted 
+}
+
+.consulta{
+    background-color: yellow;
+    text-align: center;
+}
+td::before {
+    content: "• ";
+}
