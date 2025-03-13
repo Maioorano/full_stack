@@ -1,0 +1,14 @@
+:root {
+    --bisque: #ffe4c4;
+    --darkgreen: #006400;
+    --lightskyblue: #87cefa;
+    --lightgray: #d3d3d3;
+    --darkred: #8b0000;
+    --indigo: #4b0082;
+    --red: #ff0000;
+    --yellow: #ffff00;
+}
+
+body {
+    background-color: var(--lightgray);
+}
