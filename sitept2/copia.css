@@ -100,6 +100,12 @@ body {
     justify-content: center;
 }
 
+.tabela-amarela {
+    border: 1px solid green;
+    display: flex;
+
+}
+
 
 
 
