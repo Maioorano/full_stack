@@ -95,22 +95,19 @@ body {
 
 .tabela-contato {
     border: 4px dashed var(--red);
-    padding: 40px;
-    display: flex;
-    justify-content: center;
 }
 
-.tabela-amarela {
-    border: 1px solid green;
-    display: flex;
-
+.tabela-contato thead {
+    color: var(--red)
 }
 
-
-
-
-
-
+.tabela-contato th,
+td {
+    border: 1px solid var(--color-red);
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 18px;
+}
 
 
 
