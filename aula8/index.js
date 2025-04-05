@@ -51,3 +51,4 @@ document.addEventListener('mouseleave', function () {
     katana.x = lastX;
     katana.y = lastY;
 });
+
