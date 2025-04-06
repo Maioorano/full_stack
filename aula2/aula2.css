@@ -1,23 +1,27 @@
+a:hover {
+    color: red;
+}
 
-a:hover{
-    color:firebrick;
-} 
-button:hover{
+button:hover {
     cursor: pointer;
 }
 
-p{
-    color:red;
+p {
+    color: cornflowerblue;
     font-size: 18pt;
-} 
-
-.roxo{
-    color:purple;
-    font:17pt;
-    font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 
-#bg{
-    background-color:bisque;
+#bg {
+    background-color: #D3D3D3;
 
+}
+
+.centro {
+    display: flex;
+    justify-content: center;
+}
+
+.img {
+    display: flex;
+    justify-content: space-around;
 }
