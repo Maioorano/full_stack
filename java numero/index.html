@@ -4,30 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador numero</title>
+    <title>Adivinhação</title>
+    <link href="index.css" rel="stylesheet">
 </head>
 
-<body>
-    <div>
-        Digite o numero1<input type="number" id="numero1"> <br>
-        Digite o numero2<input type="number" id="numero2">
+<body class="fundo">
 
+    <div class="caixa">
+        <h1>Adivinha um número entre 0 e 99</h1>
+        <input type="number" id="numeroInput" placeholder="Digite um número (0-99)" min="0" max="99">
+        <button onclick="adivinhar()">Adivinhar</button>
+        <div id="resultado">Tente adivinhar o número!</div>
     </div>
-    <input type="button" value="Soma" onclick="soma()">
 
-    <h2>Gerador de Número Aleatório</h2>
+    <script src="guess.js"></script>
 
-    <button onclick="gerarNumero()">Gerar Número Aleatório</button>
-
-    <p id="numero"></p>
-
-    <script>
-        function gerarNumero() {
-            var numeroAleatorio = Math.floor(Math.random() * 51);
-
-            document.getElementById("numero").textContent = "Número aleatório: " + numeroAleatorio;
-        }
-    </script>
 </body>
 
 </html>
