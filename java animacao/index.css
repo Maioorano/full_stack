@@ -1,8 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 #canvas {
-    margin-top: 300px;
-    margin-left: 800px;
     background-color: white;
-    border: 2px solid;
+    border: 10px solid;
     border-color: black;
 
+}
+
+.centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
