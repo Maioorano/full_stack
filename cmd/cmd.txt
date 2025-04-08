@@ -1,0 +1,7 @@
+cd=entra/direciona
+dir=mostra oq tem
+mkdir=cria pasta (exemplo-->mkdir cmd=cria pasta com o nome cmd)
+nome cosposto com aspas="area de trabalho"
+cd ./ teste-> entra na pasta teste
+cd ..-> volta pra pasta de tras
+../-> .. volta, o / procura a proxima pagina
