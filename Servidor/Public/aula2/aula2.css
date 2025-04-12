@@ -1,0 +1,27 @@
+a:hover {
+    color: red;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+p {
+    color: cornflowerblue;
+    font-size: 18pt;
+}
+
+#bg {
+    background-color: #D3D3D3;
+
+}
+
+.centro {
+    display: flex;
+    justify-content: center;
+}
+
+.img {
+    display: flex;
+    justify-content: space-around;
+}
