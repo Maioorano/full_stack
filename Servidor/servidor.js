@@ -15,8 +15,8 @@ server.listen(80);
 
 console.log('Servidor rodando ...'.rainbow);
 
-app.get('/', function (requisicao, resposta){
-resposta.redirect('home.html')
+app.post('/', function (requisicao, resposta){
+resposta.redirect('login.html')
 })
 
 app.get('/inicio', function (requisicao, resposta){
@@ -31,9 +31,8 @@ console.log(data);
 
 app.get('/cadastro',function (requisicao, resposta){
 var nome = requisicao.query.nome;
-var sobrenome = requisicao.query.sobrenome;
-var nascimento = requisicao.query.nascimento;
-var civil = requisicao.query.civil;
+var senha = requisicao.query.senha;
 
-resposta.render('resposta_cadastro', {nome, sobrenome, nascimento, civil})
+
+resposta.render('resposta_cadastro', {nome, senha})
 })
