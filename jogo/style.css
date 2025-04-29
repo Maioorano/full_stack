@@ -1,0 +1,115 @@
+/* Resetando margens e paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #87CEEB;
+}
+
+#campo {
+    position: relative;
+    width: 800px;
+    height: 400px;
+    background-color: #228B22;
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
+
+.gol {
+    position: absolute;
+    width: 100px;
+    /* Largura do gol */
+    height: 10px;
+    /* Espessura do gol */
+    background-color: #fff;
+    z-index: 0;
+    /* Gols ficam atrás dos jogadores */
+}
+
+/* Gol do jogador 1 (esquerdo) */
+#gol-esquerdo {
+    left: 0;
+    /* Alinha com o jogador 1 */
+    bottom: 50%;
+    /* Gol ligeiramente afastado do fundo */
+}
+
+/* Gol do jogador 2 (direito) */
+#gol-direito {
+    right: 0;
+    /* Alinha com o jogador 2 */
+    bottom: 50%;
+    /* Gol ligeiramente afastado do fundo */
+}
+
+.jogador {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #ff6347;
+    border-radius: 50%;
+    /* Cabeça redonda */
+    bottom: 10%;
+    /* Jogadores ficam no meio vertical do campo */
+    z-index: 1;
+    /* Jogadores ficam acima dos gols */
+}
+
+/* Jogador 1 (esquerda) */
+#jogador1 {
+    left: 20px;
+    /* Jogador 1 na extremidade esquerda */
+}
+
+/* Jogador 2 (direita) */
+#jogador2 {
+    right: 20px;
+    /* Jogador 2 na extremidade direita */
+}
+
+#bola {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    border-radius: 50%;
+    left: 50%;
+    /* Bola centralizada horizontalmente */
+    bottom: 50%;
+    /* Bola centralizada verticalmente */
+    transform: translate(-40%, 40%);
+    /* Ajusta a posição da bola */
+    z-index: 2;
+    /* Coloca a bola acima dos jogadores e gols */
+}
+
+/* Fundo do campo */
+#campo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background: #228B22;
+}
+
+#campo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    z-index: 1;
+}
