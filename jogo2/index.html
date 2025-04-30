@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Futebol com Fogos</title>
+    <title>Futebol de 2</title>
     <style>
         body {
             margin: 0;
@@ -45,8 +45,8 @@
         }
 
         .cadeira {
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             background: #ccc;
             border: 1px solid #999;
             border-radius: 2px;
@@ -270,8 +270,8 @@
 
             if (dist < maxDist) {
                 const factor = 1 - (dist / maxDist); // mais perto => mais força
-                ball.dx = dx * 0.2 * factor;
-                ball.dy = dy * 0.2 * factor;
+                ball.dx = dx * 0.8 * factor;
+                ball.dy = dy * 0.8 * factor;
             }
         }
 
@@ -339,15 +339,15 @@
 
         document.addEventListener("keydown", e => {
             switch (e.key) {
-                case "a": player1.dx = -1.5; break;
-                case "d": player1.dx = 1.5; break;
-                case "w": player1.dy = -1.5; break;
-                case "s": player1.dy = 1.5; break;
+                case "a": player1.dx = -2; break;
+                case "d": player1.dx = 2; break;
+                case "w": player1.dy = -2; break;
+                case "s": player1.dy = 2; break;
                 case " ": kickBall(player1); break;
-                case "ArrowLeft": player2.dx = -1.5; break;
-                case "ArrowRight": player2.dx = 1.5; break;
-                case "ArrowUp": player2.dy = -1.5; break;
-                case "ArrowDown": player2.dy = 1.5; break;
+                case "ArrowLeft": player2.dx = -2; break;
+                case "ArrowRight": player2.dx = 2; break;
+                case "ArrowUp": player2.dy = -2; break;
+                case "ArrowDown": player2.dy = 2; break;
                 case "Enter": kickBall(player2); break;
             }
         });
