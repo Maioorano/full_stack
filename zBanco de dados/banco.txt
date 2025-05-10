@@ -1,1 +1,3 @@
-mongodb+srv://Maiorano:Jpmgato6@@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao
+mongodb+srv://Maiorano:KNUfH8qWASB3695z@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao
+
+senha:KNUfH8qWASB3695z

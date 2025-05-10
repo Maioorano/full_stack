@@ -8,7 +8,7 @@ var mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 
 
-const uri = `mongodb+srv://Maiorano:Jpmgato6@@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao`;
+const uri = "mongodb+srv://Maiorano:KNUfH8qWASB3695z@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao";
 
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -32,9 +32,9 @@ app.post("/cadastrar_usuario", function (req, resp) {
 
     usuarios.insertOne(data, function (err) {
         if (err) {
-            resp.render('resposta_usuario', { resposta: "Erro ao cadastrar usuário!" })
+            resp.render('resposta_login', { resposta: "Erro ao cadastrar usuário!" })
         } else {
-            resp.render('resposta_usuario', { resposta: "Usuário cadastrado com sucesso!" })
+            resp.render('resposta_login', { resposta: "Usuário cadastrado com sucesso!" })
         };
     });
 
@@ -57,24 +57,26 @@ app.post("/logar_usuario", function (req, resp) {
 });
 
 
+
 app.post('/', function (requisicao, resposta) {
     resposta.redirect('login.html')
 })
 
 app.get('/inicio', function (requisicao, resposta) {
-    var nome = requisicao.query.info;
+    var nome = requisicao.query.login;
     console.log(nome);
+    resposta.render('resposta_usuario', { nome })
 })
 
 app.post('/inicio', function (requisicao, resposta) {
-    var data = requisicao.body.data;
+    var nome = requisicao.body.data;
     console.log(data);
+    resposta.render('resposta_usuario', { nome })
 })
 
 app.get('/cadastro', function (requisicao, resposta) {
     var nome = requisicao.query.nome;
     var senha = requisicao.query.senha;
-
 
     resposta.render('resposta_cadastro', { nome, senha })
 })

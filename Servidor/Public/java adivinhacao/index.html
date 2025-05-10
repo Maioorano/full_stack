@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo de Adivinhação</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            /* Cor de fundo */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+
+        input,
+        button {
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Jogo de Adivinhação</h1>
+        <p>Digite um número entre 0 e 99:</p>
+        <input type="number" id="userGuess" min="0" max="9" />
+        <button onclick="checkGuess()">Adivinhar</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const randomNumber = Math.floor(Math.random() * 100); // Número aleatório de 0 a 9
+        console.log("Número gerado (para testes):", randomNumber);
+
+        function checkGuess() {
+            const userInput = document.getElementById("userGuess").value;
+            const resultText = document.getElementById("result");
+            const container = document.getElementById("container");
+
+            if (userInput === "") {
+                resultText.textContent = "Por favor, insira um número.";
+                return;
+            }
+
+            const guess = parseInt(userInput);
+
+            if (guess === randomNumber) {
+                resultText.textContent = "Parabéns! Você acertou!";
+                container.style.setProperty("background-color", "lightgreen");
+            } else if (guess < randomNumber) {
+                resultText.textContent = "Muito baixo! Tente novamente.";
+                container.style.setProperty("background-color", "red");
+            } else {
+                resultText.textContent = "Muito alto! Tente novamente.";
+                container.style.setProperty("background-color", "red");
+            }
+        }
+    </script>
+    <a href="../aula2/index.html">Acessar página anterior</a>
+</body>
+
+
+</html>
