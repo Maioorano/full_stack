@@ -8,7 +8,7 @@ var mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 
 
-const uri = "mongodb+srv://Maiorano:KNUfH8qWASB3695z@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao";
+const uri = "mongodb+srv://Maiorano:AHtGibxZyEAXmltq@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao";
 
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -23,18 +23,17 @@ var server = http.createServer(app);
 server.listen(80);
 
 console.log('Servidor rodando ...'.rainbow);
-
-var dbo = client.db("Informações Blog");
-var Post = dbo.collection("Post");
+const dbo = client.db("exemplo_bd");
+const usuarios = dbo.collection("usuarios");
 
 app.post("/cadastrar_usuario", function (req, resp) {
-    var data = { db_nome: req.body.nome, db_login: req.body.login, db_senha: req.body.senha };
+    var data = { db_login: req.body.nome, db_senha: req.body.senha };
 
     usuarios.insertOne(data, function (err) {
         if (err) {
-            resp.render('resposta_login', { resposta: "Erro ao cadastrar usuário!" })
+            resp.render('resposta_erro', { resposta: "Erro ao cadastrar usuário!" })
         } else {
-            resp.render('resposta_login', { resposta: "Usuário cadastrado com sucesso!" })
+            resp.render('resposta_cadastro', { nome: req.body.nome, senha: req.body.senha })
         };
     });
 
@@ -46,11 +45,11 @@ app.post("/logar_usuario", function (req, resp) {
     usuarios.find(data).toArray(function (err, items) {
         console.log(items);
         if (items.length == 0) {
-            resp.render('resposta_usuario', { resposta: "Usuário/senha não encontrado!" })
+            resp.render('resposta_erro', { resposta: "Usuário/senha não encontrado!" })
         } else if (err) {
-            resp.render('resposta_usuario', { resposta: "Erro ao logar usuário!" })
+            resp.render('resposta_erro', { resposta: "Erro ao logar usuário!" })
         } else {
-            resp.render('resposta_usuario', { resposta: "Usuário logado com sucesso!" })
+            resp.render('resposta_usuario', { resposta: "Usuário logado com sucesso!", nome: req.body.login })
         };
     });
 
@@ -58,25 +57,6 @@ app.post("/logar_usuario", function (req, resp) {
 
 
 
-app.post('/', function (requisicao, resposta) {
+app.get('/', function (requisicao, resposta) {
     resposta.redirect('login.html')
-})
-
-app.get('/inicio', function (requisicao, resposta) {
-    var nome = requisicao.query.login;
-    console.log(nome);
-    resposta.render('resposta_usuario', { nome })
-})
-
-app.post('/inicio', function (requisicao, resposta) {
-    var nome = requisicao.body.data;
-    console.log(data);
-    resposta.render('resposta_usuario', { nome })
-})
-
-app.get('/cadastro', function (requisicao, resposta) {
-    var nome = requisicao.query.nome;
-    var senha = requisicao.query.senha;
-
-    resposta.render('resposta_cadastro', { nome, senha })
 })
