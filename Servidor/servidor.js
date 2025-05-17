@@ -65,7 +65,7 @@ client.connect().then(() => {
 
   // INICIA SERVIDOR
   http.createServer(app).listen(80, () => {
-    console.log('🚀 Servidor rodando na porta 80'.cyan);
+    console.log('🚀 Servidor rodando na porta 80'.rainbow);
   });
 }).catch(err => {
   console.error('❌ Erro ao conectar no MongoDB:', err);
