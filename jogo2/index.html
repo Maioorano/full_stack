@@ -2,157 +2,188 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Futebol de 2</title>
-    <link href="jogo.css" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            background: #111;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
+  <meta charset="UTF-8" />
+  <title>Feitebol</title>
+  <link href="jogo.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #0c0, #030);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f5f5f5;
+    }
 
-        .placar {
-            font-size: 24px;
-            margin: 20px;
-        }
+    .placar {
+      font-size: 26px;
+      margin: 20px;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #000;
+    }
 
-        .container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-        .arquibancada {
-            width: 100px;
-            height: 400px;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            position: relative;
-            overflow: visible;
-        }
+    .arquibancada {
+      width: 120px;
+      height: 500px;
+      background: linear-gradient(to bottom, #ddd, #aaa);
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px #666;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      position: relative;
+    }
 
-        .fileira {
-            display: flex;
-            gap: 3px;
-        }
+    .fileira {
+      display: flex;
+      gap: 5px;
+    }
 
-        .cadeira {
-            width: 15px;
-            height: 15px;
-            background: #ccc;
-            border: 1px solid #999;
-            border-radius: 2px;
-            position: relative;
-            overflow: visible;
-        }
+    .cadeira {
+      width: 18px;
+      height: 18px;
+      background: #ccc;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .torcedor {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            background-color: red;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-        }
+    .torcedor {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: red;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    }
 
-        .player {
-            position: absolute;
-            width: 60px;
-            height: 120px;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
+    canvas {
+      border: 5px solid #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #000;
+    }
 
-        .ball-img {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
+    .player {
+      position: absolute;
+      width: 60px;
+      height: 120px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
 
-        .firework {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            animation: explode 1s ease-out forwards;
-            pointer-events: none;
-            z-index: 100;
-        }
+    .ball-img {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
 
-        @keyframes explode {
-            to {
-                transform: translate(var(--x), var(--y));
-                opacity: 0;
-            }
-        }
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+      pointer-events: none;
+      z-index: 100;
+    }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 300;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+    @keyframes explode {
+      to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
 
-        .overlay h1,
-        .overlay h2 {
-            margin: 10px 0;
-        }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 300;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-        .btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            background: limegreen;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 0 10px #0f0;
-            margin-top: 20px;
-        }
-    </style>
+    .overlay h1,
+    .overlay h2,
+    .overlay h4 {
+      margin: 10px 0;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #28a745, #218838);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0f0;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #218838, #1e7e34);
+    }
+
+    #btnVoltar {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #dc3545;
+      color: white;
+      cursor: pointer;
+      z-index: 150;
+      display: none;
+      box-shadow: 0 0 10px #f00;
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- Tela de Desenvolvedores -->
+            <!-- Tela de Desenvolvedores -->
     <div id="telaDesenvolvedores" class="overlay">
-        <h1 class="Jogo">Boa noite!</h1>
-        <h2>Eduardo RA: 22.125.090-5 Email: effruiz@hotmail.com</h2>
-        <h2>João RA: 22.125.037-6 Email: jp.maioranoo@gmail.com</h2>
-        <h2>Matheus RA: 22.125.040-0 Email: matheus.rib0809@gmail.com</h2>
-        <h2>Vinicius RA: 22.125.029-3 Email: vinicius020806@gmail.com</h2>
+        <h1 class="Jogo">Criadores</h1>
+        <h4>Eduardo RA: 22.125.090-5 Email: effruiz@hotmail.com</h4>
+        <h4>João RA: 22.125.037-6 Email: jp.maioranoo@gmail.com</h4>
+        <h4>Matheus RA: 22.125.040-0 Email: matheus.rib0809@gmail.com</h4>
+        <h4>Vinicius RA: 22.125.029-3 Email: vinicius020806@gmail.com</h4>
+        <h2>Nós 4 somos alunos do curso de ciencias da computação, do primeiro semestre, e fizemos este jogo para a conclusao do semestre</h2>
         <button class="btn" onclick="mostrarMenu()">Continuar</button>
     </div>
 
     <div id="menu" class="overlay" style="display: none;">
-        <h1 style="margin-bottom: 10px;">Futebol de 2</h1>
+        <h1 style="margin-bottom: 10px;">Feitebol</h1>
         <p style="max-width: 600px; font-size: 16px; margin-bottom: 20px;">
-            Bem-vindo ao Futebol de 2! <br><br>
+            Bem-vindos ao futebol da fei<br><br>
             <strong>Objetivo:</strong> marque mais gols que seu adversário! <br>
             <strong>Controles do Jogador 1:</strong> W, A, S, D para mover e <strong>ESPAÇO</strong> para chutar <br>
             <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para chutar
@@ -193,10 +224,10 @@
         const field = { width: canvas.width, height: canvas.height };
         const goalSize = 150;
         const ball = { x: 400, y: 200, radius: 15, dx: 0, dy: 0 };
-
+        //onde os jogares vao iniciar
         const player1 = { x: 100, y: 200, width: 60, height: 120, dx: 0, dy: 0 };
         const player2 = { x: 680, y: 200, width: 60, height: 120, dx: 0, dy: 0 };
-
+        //carrega os jogadores
         const player1Img = document.getElementById("player1Img");
         const player2Img = document.getElementById("player2Img");
         const ballImg = document.getElementById("ballImg");
@@ -254,7 +285,7 @@
             ctx.lineTo(field.width / 2, field.height);
             ctx.stroke();
 
-
+            //gol
             ctx.fillStyle = "#fff";
             ctx.fillRect(0, field.height / 2 - goalSize / 2, 10, goalSize);
             ctx.fillRect(field.width - 10, field.height / 2 - goalSize / 2, 10, goalSize);
@@ -358,7 +389,7 @@
             const dx = ball.x - player.x;
             const dy = ball.y - player.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 50; // 
+            const maxDist = 50; 
 
             if (dist < maxDist) {
                 const factor = 1 - (dist / maxDist); // mais perto => mais força
@@ -370,7 +401,7 @@
         function atualizarPlacar() {
             placarDiv.textContent = `Jogador(1) ${golsAzul} x ${golsVermelho} Jogador(2)`;
         }
-
+        //reseta posição quando faz gol
         function resetPositions() {
             player1.x = field.width * 0.25;
             player1.y = field.height / 2;
