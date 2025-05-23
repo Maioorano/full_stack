@@ -136,11 +136,11 @@
         <h1 style="margin-bottom: 10px;">Futebol de 2</h1>
         <p style="max-width: 600px; text-align: center; font-size: 16px; margin-bottom: 20px;">
             Bem-vindo ao Futebol de 2! <br><br>
-            ⚽ <strong>Objetivo:</strong> marque mais gols que seu adversário! <br>
-            🎮 <strong>Controles do Jogador 1:</strong> W, A, S, D para mover e <strong>ESPAÇO</strong> para chutar <br>
-            🎮 <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para
+            <strong>Objetivo:</strong> marque mais gols que seu adversário! <br>
+            <strong>Controles do Jogador 1:</strong> W, A, S, D para mover e <strong>ESPAÇO</strong> para chutar <br>
+            <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para
             chutar <br><br>
-            Que vença o melhor!
+
         </p>
         <button onclick="iniciarJogo()" style="
         padding: 15px 30px;
@@ -322,8 +322,9 @@
             [player1, player2].forEach(p => {
                 p.x += p.dx;
                 p.y += p.dy;
-                if (p.x < 0) p.x = 0;
-                if (p.x + p.width > field.width) p.x = field.width - p.width;
+                const halfWidth = p.width / 2;
+                if (p.x - halfWidth < 0) p.x = halfWidth;
+                if (p.x + halfWidth > field.width) p.x = field.width - halfWidth;
                 if (p.y - p.height / 2 < 0) p.y = p.height / 2;
                 if (p.y + p.height / 2 > field.height) p.y = field.height - p.height / 2;
             });
