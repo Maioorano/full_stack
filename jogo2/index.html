@@ -184,7 +184,7 @@
         <h1 style="margin-bottom: 10px;">Feitebol</h1>
         <p style="max-width: 600px; font-size: 16px; margin-bottom: 20px;">
             Bem-vindos ao futebol da fei<br><br>
-            <strong>Objetivo:</strong> marque mais gols que seu adversário! <br>
+            <strong>Objetivo:</strong> Quem fizer 3 gols ganha!<br>
             <strong>Controles do Jogador 1:</strong> W, A, S, D para mover e <strong>ESPAÇO</strong> para chutar <br>
             <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para chutar
         </p>
@@ -202,9 +202,11 @@
         background: #f00; color: white;
         cursor: pointer; z-index: 150; display: none;">Voltar ao Menu</button>
 
+        
     <div class="container">
         <div class="arquibancada" id="arquibancada-esquerda"></div>
         <div style="position: relative;">
+            <!-- canvas -->
             <canvas id="game" width="1200" height="600"></canvas>
             <img id="player1Img" class="player" src="imagens/jogador1.png" style="display: none;">
             <img id="player2Img" class="player" src="imagens/jogador2.png" style="display: none;">
@@ -220,14 +222,13 @@
         const placarDiv = document.getElementById("placar");
         let golsAzul = 0;
         let golsVermelho = 0;
-
+            //inicializa objetos
         const field = { width: canvas.width, height: canvas.height };
         const goalSize = 150;
         const ball = { x: 400, y: 200, radius: 15, dx: 0, dy: 0 };
-        //onde os jogares vao iniciar
         const player1 = { x: 100, y: 200, width: 60, height: 120, dx: 0, dy: 0 };
         const player2 = { x: 680, y: 200, width: 60, height: 120, dx: 0, dy: 0 };
-        //carrega os jogadores
+        //carrega os jogadores e a bola
         const player1Img = document.getElementById("player1Img");
         const player2Img = document.getElementById("player2Img");
         const ballImg = document.getElementById("ballImg");
@@ -237,7 +238,7 @@
         player1Img.style.display = "block";
         player2Img.style.display = "block";
         ballImg.style.display = "block";
-
+            //cria a arquibancada
         function criarArquibancadas() {
             const esquerda = document.getElementById("arquibancada-esquerda");
             const direita = document.getElementById("arquibancada-direita");
@@ -271,7 +272,7 @@
                 direita.appendChild(fileiraDir);
             }
         }
-
+            //desenha o campo
         function drawField() {
             ctx.fillStyle = "#080";
             ctx.fillRect(0, 0, field.width, field.height);
@@ -345,7 +346,7 @@
             ballImg.style.left = `${ball.x}px`;
             ballImg.style.top = `${ball.y}px`;
         }
-
+            //atualiza a posição dos jogadores
         function movePlayers() {
             [player1, player2].forEach(p => {
                 p.x += p.dx;
@@ -357,7 +358,7 @@
                 if (p.y + p.height / 2 > field.height) p.y = field.height - p.height / 2;
             });
         }
-
+            //atualiza a bola
         function moveBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
@@ -384,7 +385,7 @@
                 ball.dx *= -1;
             }
         }
-
+            //chuta a bola
         function kickBall(player) {
             const dx = ball.x - player.x;
             const dy = ball.y - player.y;
@@ -397,7 +398,7 @@
                 ball.dy = dy * 0.8 * factor;
             }
         }
-
+            //funcao q atualiza o placar e quando da 3 gols encerra o jogo
        function atualizarPlacar() {
     placarDiv.textContent = `Jogador(1) ${golsAzul} x ${golsVermelho} Jogador(2)`;
 
@@ -419,7 +420,7 @@
             ball.dx = 0;
             ball.dy = 0;
         }
-
+            //cria o efeito dos fogos
         function fogos(lado) {
             const container = document.getElementById(`arquibancada-${lado}`);
             for (let i = 0; i < 30; i++) {
@@ -439,6 +440,7 @@
                 setTimeout(() => f.remove(), 1000);
             }
         }
+        //carrega tudo e inicia o jogo
         function iniciarJogo() {
             document.getElementById("menu").style.display = "none";
             document.getElementById("btnVoltar").style.display = "block";
@@ -447,14 +449,14 @@
             atualizarPlacar();
             gameLoop();
         }
-
+            //cancela a animacao e volta pro menu
         function voltarAoMenu() {
             cancelAnimationFrame(animacaoId);
             document.getElementById("menu").style.display = "flex";
             document.getElementById("btnVoltar").style.display = "none";
         }
 
-
+            //loop principal, limpa o canvas,desenha o campo, move os jogadores e a bola,atualiza posições visuais 
         function gameLoop() {
             ctx.clearRect(0, 0, field.width, field.height);
             drawField();
@@ -465,7 +467,7 @@
         }
 
 
-
+            //teclas de funcionamento
         document.addEventListener("keydown", e => {
             switch (e.key) {
                 case "a": player1.dx = -3; break;
@@ -480,7 +482,7 @@
                 case "Enter": kickBall(player2); break;
             }
         });
-
+            //define onde chuta e anda
         document.addEventListener("keyup", e => {
             if (["a", "d"].includes(e.key)) player1.dx = 0;
             if (["w", "s"].includes(e.key)) player1.dy = 0;
@@ -496,6 +498,7 @@
             document.getElementById("menu").style.display = "none";
             document.getElementById("telaDesenvolvedores").style.display = "flex";
         }
+        //encerra o jogo
         function encerrarJogo(vencedor) {
     cancelAnimationFrame(animacaoId);
     
