@@ -84,6 +84,28 @@
             z-index: 100;
         }
 
+        .cadeira {
+            width: 15px;
+            height: 15px;
+            background: #ccc;
+            border: 1px solid #999;
+            border-radius: 2px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .torcedor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            background-color: red;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+
         @keyframes explode {
             to {
                 transform: translate(var(--x), var(--y));
@@ -108,8 +130,18 @@
     z-index: 200;
     color: white;
     font-family: Arial, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
 ">
-        <h1>Futebol de 2</h1>
+        <h1 style="margin-bottom: 10px;">Futebol de 2</h1>
+        <p style="max-width: 600px; text-align: center; font-size: 16px; margin-bottom: 20px;">
+            Bem-vindo ao Futebol de 2! <br><br>
+            ⚽ <strong>Objetivo:</strong> marque mais gols que seu adversário! <br>
+            🎮 <strong>Controles do Jogador 1:</strong> W, A, S, D para mover e <strong>ESPAÇO</strong> para chutar <br>
+            🎮 <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para
+            chutar <br><br>
+            Que vença o melhor!
+        </p>
         <button onclick="iniciarJogo()" style="
         padding: 15px 30px;
         font-size: 18px;
@@ -121,6 +153,7 @@
         box-shadow: 0 0 10px #0f0;
     ">Começar Jogo</button>
     </div>
+
 
     <div class="placar" id="placar">Azul 0 x 0 Vermelho</div>
     <button id="btnVoltar" onclick="voltarAoMenu()" style="
@@ -181,16 +214,29 @@
             const esquerda = document.getElementById("arquibancada-esquerda");
             const direita = document.getElementById("arquibancada-direita");
 
+            const coresTorcedor = ['red', 'blue', 'yellow', 'green', 'orange', 'purple'];
+
             for (let i = 0; i < 10; i++) {
                 const fileiraEsq = document.createElement("div");
                 fileiraEsq.className = "fileira";
                 const fileiraDir = fileiraEsq.cloneNode();
 
                 for (let j = 0; j < 3; j++) {
-                    const cadeira = document.createElement("div");
-                    cadeira.className = "cadeira";
-                    fileiraEsq.appendChild(cadeira.cloneNode());
-                    fileiraDir.appendChild(cadeira.cloneNode());
+                    const cadeiraEsq = document.createElement("div");
+                    cadeiraEsq.className = "cadeira";
+                    const torcedorEsq = document.createElement("div");
+                    torcedorEsq.className = "torcedor";
+                    torcedorEsq.style.backgroundColor = coresTorcedor[Math.floor(Math.random() * coresTorcedor.length)];
+                    cadeiraEsq.appendChild(torcedorEsq);
+                    fileiraEsq.appendChild(cadeiraEsq);
+
+                    const cadeiraDir = document.createElement("div");
+                    cadeiraDir.className = "cadeira";
+                    const torcedorDir = document.createElement("div");
+                    torcedorDir.className = "torcedor";
+                    torcedorDir.style.backgroundColor = coresTorcedor[Math.floor(Math.random() * coresTorcedor.length)];
+                    cadeiraDir.appendChild(torcedorDir);
+                    fileiraDir.appendChild(cadeiraDir);
                 }
 
                 esquerda.appendChild(fileiraEsq);
@@ -203,15 +249,63 @@
             ctx.fillRect(0, 0, field.width, field.height);
 
             ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 4;
+
+
             ctx.beginPath();
             ctx.moveTo(field.width / 2, 0);
             ctx.lineTo(field.width / 2, field.height);
             ctx.stroke();
 
+
             ctx.fillStyle = "#fff";
             ctx.fillRect(0, field.height / 2 - goalSize / 2, 10, goalSize);
             ctx.fillRect(field.width - 10, field.height / 2 - goalSize / 2, 10, goalSize);
+
+
+            const centerX = field.width / 2;
+            const centerY = field.height / 2;
+            const radius = 70;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.stroke();
+
+
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#fff";
+
+            const areaPequenaWidth = 60;
+            const areaPequenaHeight = 200;
+
+            const areaGrandeWidth = 180;
+            const areaGrandeHeight = 400;
+
+
+            ctx.strokeRect(0, field.height / 2 - areaGrandeHeight / 2, areaGrandeWidth, areaGrandeHeight);
+            ctx.strokeRect(0, field.height / 2 - areaPequenaHeight / 2, areaPequenaWidth, areaPequenaHeight);
+
+            ctx.strokeRect(field.width - areaGrandeWidth, field.height / 2 - areaGrandeHeight / 2, areaGrandeWidth, areaGrandeHeight);
+            ctx.strokeRect(field.width - areaPequenaWidth, field.height / 2 - areaPequenaHeight / 2, areaPequenaWidth, areaPequenaHeight);
+
+
+            ctx.fillStyle = "#fff";
+            const pontoPenaltiRaio = 5;
+
+            const penaltiXEsq = areaPequenaWidth + 40;
+            const penaltiY = field.height / 2;
+            ctx.beginPath();
+            ctx.arc(penaltiXEsq, penaltiY, pontoPenaltiRaio, 0, Math.PI * 2);
+            ctx.fill();
+
+
+            const penaltiXDir = field.width - areaPequenaWidth - 40;
+            ctx.beginPath();
+            ctx.arc(penaltiXDir, penaltiY, pontoPenaltiRaio, 0, Math.PI * 2);
+            ctx.fill();
         }
+
+
+
 
         function drawImages() {
             player1Img.style.left = `${player1.x}px`;
@@ -326,7 +420,6 @@
         }
 
 
-
         function gameLoop() {
             ctx.clearRect(0, 0, field.width, field.height);
             drawField();
@@ -335,6 +428,7 @@
             drawImages();
             animacaoId = requestAnimationFrame(gameLoop);
         }
+
 
 
         document.addEventListener("keydown", e => {
