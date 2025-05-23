@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Futebol de 2</title>
+    <link href="jogo.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -13,10 +14,10 @@
             flex-direction: column;
             align-items: center;
             font-family: Arial, sans-serif;
+            color: white;
         }
 
         .placar {
-            color: white;
             font-size: 24px;
             margin: 20px;
         }
@@ -50,12 +51,20 @@
             background: #ccc;
             border: 1px solid #999;
             border-radius: 2px;
+            position: relative;
+            overflow: visible;
         }
 
-        canvas {
-            border: 4px solid white;
-            background: linear-gradient(to right, #0a0, #060);
-            box-shadow: 0 0 20px #000;
+        .torcedor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            background-color: red;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
         }
 
         .player {
@@ -84,104 +93,92 @@
             z-index: 100;
         }
 
-        .cadeira {
-            width: 15px;
-            height: 15px;
-            background: #ccc;
-            border: 1px solid #999;
-            border-radius: 2px;
-            position: relative;
-            overflow: visible;
-        }
-
-        .torcedor {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            background-color: red;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-        }
-
         @keyframes explode {
             to {
                 transform: translate(var(--x), var(--y));
                 opacity: 0;
             }
         }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .overlay h1,
+        .overlay h2 {
+            margin: 10px 0;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: limegreen;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 10px #0f0;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="menu" style="
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-    color: white;
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    box-sizing: border-box;
-">
+
+    <!-- Tela de Desenvolvedores -->
+    <div id="telaDesenvolvedores" class="overlay">
+        <h1 class="Jogo">Boa noite!</h1>
+        <h2>Eduardo RA: 22.125.090-5 Email: effruiz@hotmail.com</h2>
+        <h2>João RA: 22.125.037-6 Email: jp.maioranoo@gmail.com</h2>
+        <h2>Matheus RA: 22.125.040-0 Email: matheus.rib0809@gmail.com</h2>
+        <h2>Vinicius RA: 22.125.029-3 Email: vinicius020806@gmail.com</h2>
+        <button class="btn" onclick="mostrarMenu()">Continuar</button>
+    </div>
+
+    <div id="menu" class="overlay" style="display: none;">
         <h1 style="margin-bottom: 10px;">Futebol de 2</h1>
-        <p style="max-width: 600px; text-align: center; font-size: 16px; margin-bottom: 20px;">
+        <p style="max-width: 600px; font-size: 16px; margin-bottom: 20px;">
             Bem-vindo ao Futebol de 2! <br><br>
             <strong>Objetivo:</strong> marque mais gols que seu adversário! <br>
             <strong>Controles do Jogador 1:</strong> W, A, S, D para mover e <strong>ESPAÇO</strong> para chutar <br>
-            <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para
-            chutar <br><br>
-
+            <strong>Controles do Jogador 2:</strong> Setas direcionais para mover e <strong>ENTER</strong> para chutar
         </p>
-        <button onclick="iniciarJogo()" style="
-        padding: 15px 30px;
-        font-size: 18px;
-        border: none;
-        border-radius: 8px;
-        background: limegreen;
-        color: white;
-        cursor: pointer;
-        box-shadow: 0 0 10px #0f0;
-    ">Começar Jogo</button>
+        <button class="btn" onclick="iniciarJogo()">Começar Jogo</button>
+        <button class="btn" style="background: darkorange; margin-top: 10px;" onclick="mostrarDesenvolvedores()">Voltar
+            para Desenvolvedores</button>
     </div>
 
 
-    <div class="placar" id="placar">Azul 0 x 0 Vermelho</div>
+    <div class="placar" id="placar">Jogador(1) 0 x 0 Jogador(2)</div>
     <button id="btnVoltar" onclick="voltarAoMenu()" style="
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 6px;
-    background: #f00;
-    color: white;
-    cursor: pointer;
-    z-index: 150;
-    display: none;
-">Voltar ao Menu</button>
-
+        position: absolute; top: 10px; right: 10px;
+        padding: 10px 20px; font-size: 14px;
+        border: none; border-radius: 6px;
+        background: #f00; color: white;
+        cursor: pointer; z-index: 150; display: none;">Voltar ao Menu</button>
 
     <div class="container">
         <div class="arquibancada" id="arquibancada-esquerda"></div>
-
         <div style="position: relative;">
             <canvas id="game" width="1200" height="600"></canvas>
             <img id="player1Img" class="player" src="imagens/jogador1.png" style="display: none;">
             <img id="player2Img" class="player" src="imagens/jogador2.png" style="display: none;">
             <img id="ballImg" class="ball-img" src="imagens/bola.png" style="display: none;">
         </div>
-
         <div class="arquibancada" id="arquibancada-direita"></div>
     </div>
 
@@ -453,6 +450,17 @@
             if (["ArrowLeft", "ArrowRight"].includes(e.key)) player2.dx = 0;
             if (["ArrowUp", "ArrowDown"].includes(e.key)) player2.dy = 0;
         });
+
+        function mostrarMenu() {
+            document.getElementById("telaDesenvolvedores").style.display = "none";
+            document.getElementById("menu").style.display = "flex";
+        }
+        function mostrarDesenvolvedores() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("telaDesenvolvedores").style.display = "flex";
+        }
+
+
 
 
     </script>
