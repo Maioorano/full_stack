@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+require('colors');
 
 // Servir arquivos estáticos da pasta "views"
 app.use(express.static(path.join(__dirname, 'views')));
@@ -12,5 +13,5 @@ app.get('/', (req, res) => {
 
 // Rodar na porta 80
 app.listen(80, () => {
-    console.log('Servidor rodando.');
+    console.log('Servidor rodando.'.rainbow);
 });
