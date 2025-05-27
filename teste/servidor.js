@@ -1,7 +1,17 @@
 const express = require('express');
 const path = require('path');
-const app = express();
+const mongoose = require('mongoose');
 require('colors');
+
+const app = express();
+
+// Conectar ao MongoDB
+mongoose.connect('mongodb+srv://Maiorano:AHtGibxZyEAXmltq@clusterjao.awiwqkh.mongodb.net/?retryWrites=true&w=majority&appName=ClusterJao', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('Conectado ao banco'.green))
+    .catch((err) => console.error('erro:', err.message.red));
 
 // Servir arquivos estáticos da pasta "views"
 app.use(express.static(path.join(__dirname, 'views')));
